@@ -5,7 +5,7 @@
   <div class="bg-gray-900">
     <div class="flex bg-white font-roboto">
       <div
-        class="h-screen z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:static lg:inset-0"
+        class="z-30 inset-y-0 left-0 w-64 transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:static lg:inset-0"
       >
         <div class="flex items-center justify-center mt-8">
           <div class="flex items-center">

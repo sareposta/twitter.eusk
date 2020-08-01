@@ -1,18 +1,30 @@
 {
-  "name": "nuxtjs",
-  "version": "1.0.0",
-  "description": "My astonishing Nuxt.js project",
-  "author": "msweeneydev",
-  "private": true,
-  "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt generate",
-    "start": "nuxt start"
-  },
-  "dependencies": {
-    "nuxt": "^2.0.0"
-  },
-  "devDependencies": {
-    "nodemon": "^1.18.9"
-  }
+    "name": "twitter-admin",
+    "version": "1.0.0",
+    "description": "twitter.eusk - Admin ",
+    "author": "msweeneydev",
+    "private": true,
+    "scripts": {
+        "dev": "nuxt",
+        "build": "nuxt generate",
+        "start": "nuxt start"
+    },
+    "dependencies": {
+        "@inkline/nuxt": "^2.3.0",
+        "@nuxtjs/auth": "^4.9.1",
+        "@nuxtjs/axios": "^5.12.0",
+        "moment": "^2.27.0",
+        "mongodb": "^3.6.0",
+        "node-sass": "^4.14.1",
+        "nuxt": "^2.0.0",
+        "sass-loader": "^9.0.2",
+        "twitter": "^1.7.1",
+        "vue-content-placeholders": "^0.2.1",
+        "vue-loading-overlay": "^3.3.2",
+        "vue-select": "^3.10.7",
+        "vuejs-datepicker": "^1.6.2"
+    },
+    "devDependencies": {
+        "nodemon": "^1.18.9"
+    }
 }
