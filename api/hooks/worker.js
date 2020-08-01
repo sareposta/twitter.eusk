@@ -144,15 +144,23 @@ module.exports = async(req, res) => {
         query += ' lang:' + listener.lang.value + ' ';
     }
 
-    // // -filter:replies - para que no traiga las respuestas
-    // if (!listener.replies) {
-    //     query += '(-filter:replies) '
-    // }
+    if (listener.list) {
+        query += ' list:' + listener.list + ' '
+    }
 
-    // -filter:links - para que no traiga links
-    // if (!listener.hyperlinks) {
-    //     query += '-filter:links '
-    // }
+    // -filter:replies - para que no traiga las respuestas
+    if (listener.excludeReplies) {
+        query += ' -filter:replies '
+    }
+
+    if (listener.includeReplies) {
+        query += ' filter:replies '
+    }
+
+    //filter: links - para que no traiga links
+    if (!listener.excludeLinks) {
+        query += '-filter:links '
+    }
 
     // filter:links - solo con links
     if (listener.hyperlinks) {
@@ -192,6 +200,11 @@ module.exports = async(req, res) => {
     // (@123) - que mencione alguna de estas cuentas
     if (listener.includeAccounts) {
         query += listener.includeAccounts.split(' ').join(' OR ');
+    }
+
+    // (@123) - que excluya
+    if (listener.excludeAccounts) {
+        query += ' -' + listener.excludeAccounts.split(' ').join(' -') + ' ';
     }
 
     console.log('Query: ', query);

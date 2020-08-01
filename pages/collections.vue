@@ -67,7 +67,7 @@ export default {
 			this.loading = false;
 			this.row = null;
 			this.visibleDeleteModal = false;
-			this.getData();
+			document.location.reload()
 		},
 		goTo(row) {
 			window.open(row.collection_url, '_blank');

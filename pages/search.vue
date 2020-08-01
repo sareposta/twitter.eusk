@@ -1,6 +1,6 @@
 <template>
 	<main class="flex-1 overflow-x-hidden overflow-y-auto h-full">
-		<loading :active.sync="isLoading"  :is-full-page="fullPage"></loading>
+		<loading :active.sync="isLoading" :is-full-page="fullPage"></loading>
 
 		<div class="container mx-auto px-6 py-8">
 			<h3 class="text-gray-700 text-3xl font-semibold">Agregar Escuchador</h3>
@@ -49,12 +49,17 @@
 
 							<div>
 								<label class="text-gray-700">Ninguna de estas palabras</label>
-								<i-input v-model="form.excludeWords" placeholder="Ejemplo: Ranas, sapos" />
+								<i-input v-model="form.excludeWords" placeholder="Ejemplo: ranas sapos" />
 							</div>
 
 							<div>
 								<label class="text-gray-700">Incluye estas cuentas</label>
 								<i-input v-model="form.includeAccounts" placeholder="Ejemplo: @basque" />
+							</div>
+
+							<div>
+								<label class="text-gray-700">Excluye estas cuentas</label>
+								<i-input v-model="form.excludeAccounts" placeholder="Ejemplo: @basque" />
 							</div>
 
 							<div>
@@ -66,15 +71,34 @@
 							</div>
 
 							<div>
+								<label class="text-gray-700">No incluye estos hashtags</label>
+								<i-input
+									v-model="form.excludeHashtags"
+									placeholder="Ejemplo: no contiene el hashtag: 'jueves de antaño'"
+								/>
+							</div>
+
+							<div>
+								<label class="text-gray-700">Buscar en lista</label>
+								<i-input v-model="form.list" placeholder="Ejemplo: nombre lista" />
+							</div>
+
+							<div>
 								<label class="text-gray-700">Idioma</label>
 								<v-select v-model="form.lang" :options="langs"></v-select>
 							</div>
 							<div>
-								<label class="text-gray-700">Respuestas</label>
-
-								<i-checkbox-group size="md" v-model="form.includeOriginal">
-									<i-checkbox value="includeAnswersAndTweetsNotRepited"
+								<i-checkbox-group size="md" v-model="form.includeReplies">
+									<i-checkbox value="includeReplies"
 										>Incluir respuestas y tweets originales</i-checkbox
+									>
+								</i-checkbox-group>
+							</div>
+
+							<div>
+								<i-checkbox-group size="md" v-model="form.excludeReplies">
+									<i-checkbox value="excludeReplies"
+										>Excluir respuestas y tweets originales</i-checkbox
 									>
 								</i-checkbox-group>
 							</div>
@@ -88,12 +112,22 @@
 							</div>
 
 							<div>
+								<label class="text-gray-700">Excluir tweets con enlaces</label>
+
+								<i-checkbox-group size="md" v-model="form.excludeLinks">
+									<i-checkbox value="excludeLinks">SI</i-checkbox>
+								</i-checkbox-group>
+							</div>
+
+							<div>
 								<label class="text-gray-700">Retweets</label>
 
 								<i-checkbox-group size="md" v-model="form.retweets">
 									<i-checkbox value="includeRetweets">SI</i-checkbox>
 								</i-checkbox-group>
 							</div>
+
+							<div></div>
 
 							<div>
 								<h2 class="text-lg text-gray-700 font-semibold capitalize">
@@ -104,17 +138,17 @@
 
 							<div>
 								<label class="text-gray-700">Mínimo de respuestas</label>
-								<i-input v-model="form.minAnswers" placeholder="0" />
+								<i-input v-model="form.min_replies" placeholder="0" />
 							</div>
 
 							<div>
 								<label class="text-gray-700">Mínimo de me gusta</label>
-								<i-input v-model="form.minLikes" placeholder="0" />
+								<i-input v-model="form.min_faves" placeholder="0" />
 							</div>
 
 							<div>
 								<label class="text-gray-700">Mínimo de retweets</label>
-								<i-input v-model="form.minRetweets" placeholder="0" />
+								<i-input v-model="form.min_retweets" placeholder="0" />
 							</div>
 
 							<div></div>
@@ -222,11 +256,10 @@ export default {
 						var collections = Object.values(rows.timelines);
 
 						this.collections = collections.map((collection) => {
-
 							var url = collection.collection_url.split('/');
 							var id = url[url.length - 1];
 
-							console.log(collection)
+							console.log(collection);
 							return {
 								value: id,
 								label: collection.name,
@@ -274,6 +307,10 @@ export default {
 				this.loading = false;
 
 				this.$router.push('listeners');
+
+				setTimeout(() => {
+					document.location.reload();
+				}, 1000);
 			} catch (error) {}
 		},
 	},

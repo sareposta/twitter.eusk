@@ -68,7 +68,7 @@ export default {
 
 			this.row = null;
 			this.visibleDeleteModal = false;
-			this.getData();
+			document.location.reload()
 		},
 		goTo(row) {
 			console.log('row', row);
