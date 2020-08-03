@@ -308,9 +308,7 @@ export default {
 
 				this.$router.push('listeners');
 
-				setTimeout(() => {
-					document.location.reload();
-				}, 1000);
+
 			} catch (error) {}
 		},
 	},

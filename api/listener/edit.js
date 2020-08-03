@@ -16,11 +16,13 @@ async function updateDataInMongo(data) {
 
         client.connect().then((client) => {
             const db = client.db(dbName);
-            var id = data._id
+            var id = data._id;
             delete data._id;
             db.collection('listeners').updateOne({ _id: new mongodb.ObjectID(id) }, { $set: data }, // Update
+                () => {
+                    resolve(data);
+                }
             );
-            resolve(data)
         });
     });
 }

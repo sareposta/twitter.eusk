@@ -6,6 +6,7 @@
 
 <script>
     export default {
+	layout: 'add',
         data () {
             return {
                 url: 'https://twitter.com/santiblanko/timelines/' + this.$route.query.id + '?ref_src=twsrc%5Etfw'

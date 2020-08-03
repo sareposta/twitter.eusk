@@ -17,7 +17,6 @@ async function asyncForEach(array, callback) {
 }
 
 async function addTweetToCollection(collectionId, tweetId) {
-    console.log(collectionId, tweetId, 'lol');
     var data = await client.post('https://api.twitter.com/1.1/collections/entries/add.json', {
         id: 'custom-' + collectionId,
         tweet_id: tweetId,
@@ -144,6 +143,7 @@ module.exports = async(req, res) => {
         query += ' lang:' + listener.lang.value + ' ';
     }
 
+    // permite buscar por lista
     if (listener.list) {
         query += ' list:' + listener.list + ' '
     }
@@ -163,9 +163,9 @@ module.exports = async(req, res) => {
     }
 
     // filter:links - solo con links
-    if (listener.hyperlinks) {
-        query += ' filter:links ';
-    }
+    // if (listener.hyperlinks) {
+    //     query += ' filter:links ';
+    // }
 
     // filter:replies - solo respuestas
     if (listener.onlyReplies) {
@@ -197,7 +197,7 @@ module.exports = async(req, res) => {
         query += ' until:' + moment(listener.endDate).format('YYYY-MM-DD');
     }
 
-    // (@123) - que mencione alguna de estas cuentas
+    // (@123) - que mencione alguna de estas cuentas (from:basque)
     if (listener.includeAccounts) {
         query += listener.includeAccounts.split(' ').join(' OR ');
     }
@@ -209,7 +209,7 @@ module.exports = async(req, res) => {
 
     console.log('Query: ', query);
     var data = await client.get('https://api.twitter.com/1.1/search/tweets.json?count=100', { q: query });
-    console.log('Results length: ', data.statuses.length);
+    console.log('Results length: ' + listener.collection.label, data.statuses.length);
     var tweets = data.statuses;
 
     console.timeEnd('init');

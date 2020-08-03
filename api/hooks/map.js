@@ -2,7 +2,7 @@ var axios = require('axios');
 var Twitter = require('twitter');
 var MongoClient = require('mongodb').MongoClient;
 var moment = require('moment');
-var host = 'http://localhost:3000';
+var host = 'https://nuxtjs.santiblanko.vercel.app';
 /*
  * Función para obtener escuchadores
  */
